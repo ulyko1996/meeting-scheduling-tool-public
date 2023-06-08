@@ -1,0 +1,11 @@
+{
+    "Role 1": ["Jack", "Jane", "Tiger", "Karen"],
+    "Role 2": ["Derek", "Sheila", "Albert"],
+    "Role 3": ["Karen", "Jennifer", "Linda"],
+    "Role 4": ["Christa", "Peter", "John"],
+    "Role 5": ["John", "Christa", "Sheila", "Linda", "Jennifer"],
+    "Role 6": ["Jack", "Albert", "Esther"],
+    "Role 7": ["Jane", "Esther", "Peter"],
+    "Role 8": ["Tiger", "Derek"],
+    "Role 9": ["Jane", "Tiger", "Jack"]
+}
