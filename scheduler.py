@@ -93,13 +93,16 @@ def main(n_blocks, absent_colleagues):
         if 'Role 9' not in r_list:
             add_constraint(t_idx, 9, 0)
 
-    # Frame as optimization problem
+    # Frame it as an optimization problem
+    # We want as many shifts filled in as possible, so that everyone has something to do in each timeslot.
     total_shifts = []
     for t in _timeslots:
         for r in _roles_employees.keys():
             for e in _roles_employees.get(r):
                 total_shifts.append(shifts[(t,r,e)])
 
+    # With a lower priority, we want as few meetings in parallel as possible in each timeslot.
+    # So that we do not need to occupy too many meeting rooms.
     total_roles = []
     for t in _timeslots:
         for r in _roles_employees.keys():
@@ -107,7 +110,8 @@ def main(n_blocks, absent_colleagues):
             model.Add(sum([shifts[(t,r,e)] for e in _roles_employees.get(r)]) > 0).OnlyEnforceIf(tmp)
             model.Add(sum([shifts[(t,r,e)] for e in _roles_employees.get(r)]) == 0).OnlyEnforceIf(tmp.Not())
             total_roles.append(tmp)
-    
+
+    # Maximize the total number of shifts while penalizing the presence of roles
     model.Maximize(sum(total_shifts) - sum(total_roles) * 0.1)
 
     solver = cp_model.CpSolver()
